@@ -1,7 +1,23 @@
-﻿@{
-    ViewData["Title"] = "Chamados";
-}
+﻿@model List<MiniHelpDesk.Models.Chamado>
 
-<h2>MiniHelpDesk</h2>
-<p>Módulo de Chamados iniciado.</p>
-<p>Data atual: @DateTime.Now</p>
+<h2>Lista de Chamados</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Descrição</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var chamado in Model)
+        {
+            <tr>
+                <td>@chamado.Id</td>
+                <td>@chamado.Titulo</td>
+                <td>@chamado.Descricao</td>
+            </tr>
+        }
+    </tbody>
+</table>
