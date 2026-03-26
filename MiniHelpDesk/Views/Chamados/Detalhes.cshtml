@@ -1,0 +1,30 @@
+﻿@* Destaque para os alunos: Aqui não usamos List<...>, 
+   pois recebemos apenas UM único objeto Chamado.
+*@
+@model MiniHelpDesk.Models.Chamado
+
+@{
+    ViewData["Title"] = "Detalhes do Chamado";
+}
+
+<div class="container mt-4">
+    <h2>Detalhes do Chamado #@Model.Id</h2>
+    <hr />
+
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            Informações do Ticket
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@Model.Titulo</h5>
+            <p class="card-text">
+                <strong>Descrição:</strong><br />
+                @Model.Descricao
+            </p>
+        </div>
+        <div class="card-footer text-muted">
+            @* Link para voltar à lista principal *@
+            <a asp-action="Index" class="btn btn-secondary">Voltar para a Lista</a>
+        </div>
+    </div>
+</div>
