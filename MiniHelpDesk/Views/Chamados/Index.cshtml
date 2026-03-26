@@ -2,12 +2,13 @@
 
 <h2>Lista de Chamados</h2>
 
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>ID</th>
             <th>Título</th>
             <th>Descrição</th>
+            <th>Ações</th> @* Nova coluna para o botão *@
         </tr>
     </thead>
     <tbody>
@@ -17,6 +18,15 @@
                 <td>@chamado.Id</td>
                 <td>@chamado.Titulo</td>
                 <td>@chamado.Descricao</td>
+                <td>
+                    @* Este link vai gerar uma URL tipo: /Chamados/Detalhes/1 *@
+                    <a asp-controller="Chamados"
+                           asp-action="Detalhes"
+                           asp-route-id="@chamado.Id"
+                           class="btn btn-primary btn-sm">
+                        Ver Detalhes
+                    </a>
+                </td>
             </tr>
         }
     </tbody>
