@@ -23,6 +23,30 @@ namespace MiniHelpDesk.Controllers
             return View(chamados);
         }
 
+        // Action para exibir os detalhes de UM único chamado
+        // O parâmetro 'id' é preenchido automaticamente pelo ASP.NET através da URL
+        // Exemplo: /Chamados/Detalhes/1 -> o parâmetro 'id' valerá 1
+        public IActionResult Detalhes(int id)
+        {
+            // Por enquanto, como não temos Banco de Dados, vamos "fingir" uma busca.
+            // Criamos um objeto novo usando o ID que veio da URL.
+            var chamadoRecuperado = new Chamado
+            {
+                Id = id,
+                Titulo = "Chamado Selecionado #" + id,
+                Descricao = "Esta é uma descrição detalhada simulada para o chamado de ID " + id
+            };
+
+            // Validação simples: Se o ID for zero ou negativo, simulamos um erro de "Não Encontrado"
+            if (id <= 0)
+            {
+                return NotFound(); // Retorna o erro HTTP 404 (Página não encontrada)
+            }
+
+            // Enviamos APENAS ESTE objeto para a View (não é mais uma lista!)
+            return View(chamadoRecuperado);
+        }
+
         // Action adicional apenas para exemplo didático
         // Será acessada por /Chamados/Sobre
         public IActionResult Sobre()
