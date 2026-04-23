@@ -1,19 +1,34 @@
 @model MiniHelpDesk.Models.Chamado
 
-<h2>Novo Chamado</h2>
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4>Novo Chamado</h4>
+        </div>
 
-<form asp-action="Criar" method="post">
+        <div class="card-body">
+            <form asp-action="Criar" method="post">
 
-    <div>
-        <label>Título</label>
-        <input asp-for="Titulo" />
+                <div class="mb-3">
+                    <label asp-for="Titulo" class="form-label"></label>
+                    <input asp-for="Titulo" class="form-control" placeholder="Digite o título do chamado" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Descricao" class="form-label"></label>
+                    <textarea asp-for="Descricao" class="form-control" rows="3"
+                              placeholder="Descreva o problema"></textarea>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+
+                    <button type="submit" class="btn btn-success">
+                        Salvar Chamado
+                    </button>
+                </div>
+
+            </form>
+        </div>
     </div>
-
-    <div>
-        <label>Descrição</label>
-        <input asp-for="Descricao" />
-    </div>
-
-    <button type="submit">Salvar</button>
-
-</form>
+</div>

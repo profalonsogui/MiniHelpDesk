@@ -22,6 +22,16 @@
                 @Model.Descricao
             </p>
         </div>
+        <div class="card-body">
+            <p class="card-text">
+                <strong>Status:</strong> @Model.Status<br />
+                <strong>Data de Abertura:</strong> @Model.DataAbertura.ToString("dd/MM/yyyy HH:mm")<br />
+                <strong>Data de Fechamento:</strong>
+                @(Model.DataFechamento.HasValue
+                    ? Model.DataFechamento.Value.ToString("dd/MM/yyyy HH:mm")
+                    : "Em aberto")
+            </p>
+        </div>
         <div class="card-footer text-muted">
             @* Link para voltar à lista principal *@
             <a asp-action="Index" class="btn btn-secondary">Voltar para a Lista</a>

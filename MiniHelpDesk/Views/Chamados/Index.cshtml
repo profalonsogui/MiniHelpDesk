@@ -10,6 +10,9 @@
             <th>ID</th>
             <th>Título</th>
             <th>Descrição</th>
+            <th>Status</th>
+            <th>Data de Abertura</th>
+            <th>Data de Fechamento</th>
             <th>Ações</th> @* Nova coluna para o botão *@
         </tr>
     </thead>
@@ -20,16 +23,21 @@
                 <td>@chamado.Id</td>
                 <td>@chamado.Titulo</td>
                 <td>@chamado.Descricao</td>
+                <td>@chamado.Status</td>
+                <td>@chamado.DataAbertura.ToString("dd/MM/yyyy")</td>
                 <td>
-                    @* Este link vai gerar uma URL tipo: /Chamados/Detalhes/1 *@
-                    <a asp-controller="Chamados"
-                           asp-action="Detalhes"
-                           asp-route-id="@chamado.Id"
-                           class="btn btn-primary btn-sm">
-                        Ver Detalhes
-                    </a>
+                    @(chamado.DataFechamento.HasValue
+                    ? chamado.DataFechamento.Value.ToString("dd/MM/yyyy HH:mm")
+                    : "Em aberto")
                 </td>
-            </tr>
-        }
-    </tbody>
+                <td>
+                @* Este link vai gerar uma URL tipo: /Chamados/Detalhes/1 *@
+                <a asp-controller="Chamados" asp-action="Detalhes" asp-route-id="@chamado.Id"
+                   class="btn btn-primary btn-sm">
+                    Ver Detalhes
+                </a>
+            </td>
+        </tr>
+    }
+</tbody>
 </table>
