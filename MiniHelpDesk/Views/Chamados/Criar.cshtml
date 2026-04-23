@@ -1,0 +1,19 @@
+@model MiniHelpDesk.Models.Chamado
+
+<h2>Novo Chamado</h2>
+
+<form asp-action="Criar" method="post">
+
+    <div>
+        <label>Título</label>
+        <input asp-for="Titulo" />
+    </div>
+
+    <div>
+        <label>Descrição</label>
+        <input asp-for="Descricao" />
+    </div>
+
+    <button type="submit">Salvar</button>
+
+</form>
