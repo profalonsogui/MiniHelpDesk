@@ -1,101 +1,75 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MiniHelpDesk.Models;
+using MiniHelpDesk.Data;
 
 namespace MiniHelpDesk.Controllers
 {
-    // Controller responsável pelo módulo de Chamados
     public class ChamadosController : Controller
     {
-        // 🔵 Lista em memória (simula banco de dados)
-        private static List<Chamado> chamados = new List<Chamado>
+        // 🔵 Campo para acessar o banco de dados
+        private readonly AppDbContext _context;
+
+        // 🔵 Injeção do DbContext
+        public ChamadosController(AppDbContext context)
         {
-            new Chamado 
-            { 
-                Id = 1, 
-                Titulo = "Problema de Login", 
-                Descricao = "Usuário não consegue fazer login.",
-                Status = "Aberto",
-                DataAbertura = DateTime.Now,
-                DataFechamento = null
-            },
-            new Chamado 
-            { 
-                Id = 2, 
-                Titulo = "Erro na Impressora", 
-                Descricao = "A impressora não está funcionando.",
-                Status = "Aberto",
-                DataAbertura = DateTime.Now,
-                DataFechamento = null
-            }
-        };
+            _context = context;
+        }
 
-        // 🔵 Controle de ID automático
-        private static int contadorId = 3;
-
-        // 📋 LISTAGEM DE CHAMADOS
+        // 📋 LISTAGEM
         public IActionResult Index()
         {
-            // Retorna a lista completa para a View
+            // 🔵 Busca todos os chamados no banco e converte para lista
+            var chamados = _context.Chamados.ToList();
             return View(chamados);
         }
 
-        // 🔎 DETALHES DE UM CHAMADO
+        // 🔎 DETALHES
         public IActionResult Detalhes(int id)
         {
-            // Busca o chamado pelo ID
-            var chamadoRecuperado = chamados.FirstOrDefault(c => c.Id == id); // LINQ para encontrar o chamado com o ID correspondente
+            // 🔵 Busca o chamado pelo ID
+            var chamado = _context.Chamados.FirstOrDefault(c => c.Id == id);
 
-            // Se não encontrar → retorna erro 404
-            if (chamadoRecuperado == null)
-            {
+            if (chamado == null)
                 return NotFound();
-            }
 
-            return View(chamadoRecuperado);
+            return View(chamado);
         }
 
-        // 📝 FORMULÁRIO (GET)
+        // 📝 FORMULÁRIO
         public IActionResult Criar()
         {
             return View();
         }
 
-        // 📝 FORMULÁRIO (POST - navegador)
+        // 📝 SALVAR (POST)
         [HttpPost]
         public IActionResult Criar(Chamado chamado)
         {
-            // Define ID automático
-            chamado.Id = contadorId++;
-
-            // Define valores padrão
             chamado.Status = "Aberto";
             chamado.DataAbertura = DateTime.Now;
             chamado.DataFechamento = null;
 
-            // Adiciona na lista
-            chamados.Add(chamado);
+            _context.Chamados.Add(chamado);
+            _context.SaveChanges();
 
-            // Redireciona para listagem
             return RedirectToAction("Index");
         }
 
-        // 🔌 API (POST - Postman)
+        // 🔌 API
         [HttpPost]
         [Route("api/chamados")]
         public IActionResult CriarViaApi([FromBody] Chamado chamado)
         {
-            chamado.Id = contadorId++;
-
             chamado.Status = "Aberto";
             chamado.DataAbertura = DateTime.Now;
             chamado.DataFechamento = null;
 
-            chamados.Add(chamado);
+            _context.Chamados.Add(chamado);
+            _context.SaveChanges();
 
             return Ok(chamado);
         }
 
-        // ℹ️ Página informativa
         public IActionResult Sobre()
         {
             return View();
