@@ -23,7 +23,7 @@ namespace MiniHelpDesk.Controllers
                 Id = 2, 
                 Titulo = "Erro na Impressora", 
                 Descricao = "A impressora não está funcionando.",
-                Status = "Aberto",
+                Status = "Fechado",
                 DataAbertura = DateTime.Now,
                 DataFechamento = null
             }
