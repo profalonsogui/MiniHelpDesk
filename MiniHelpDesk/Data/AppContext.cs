@@ -13,5 +13,6 @@ namespace MiniHelpDesk.Data
 
         // Representa a tabela Chamados no banco
         public DbSet<Chamado> Chamados { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
     }
 }
